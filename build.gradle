@@ -1,0 +1,65 @@
+plugins {
+  id 'com.palantir.git-version' version '0.12.2'
+  id 'java-library'
+  id 'org.openjfx.javafxplugin' version '0.0.8'
+  id 'maven-publish'
+  id 'com.jfrog.bintray' version '1.8.4'
+  id 'com.jfrog.artifactory' version '4.11.0'
+}
+
+version gitVersion()
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+  withJavadocJar()
+  withSourcesJar()
+}
+
+javafx {
+  modules = [ 'javafx.controls', 'javafx.graphics' ]
+  version = '11'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'io.reactivex.rxjava2:rxjava:2.2.4'
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compileClasspath
+
+    options {
+        setMemberLevel JavadocMemberLevel.PUBLIC
+        setAuthor true
+//        links 'https://docs.oracle.com/javase/8/docs/api/' // causes build to fail on openjdk-11.0.2+9
+    }
+}
+
+publishing {
+  publications {
+    simple(MavenPublication) {
+      from components.java
+    }
+  }
+}
+
+bintray {
+  user = project.bintrayUser
+  key = project.bintrayKey
+  publications = ['simple']
+  publish = false
+  pkg {
+    repo = 'maven'
+    name = project.name
+    licenses = ['MIT']
+    vcsUrl = 'https://github.com/tamaracha/example-java-library.git'
+    version {
+      name = gitVersion()
+      vcsTag = versionDetails().lastTag
+    }
+  }
+}
