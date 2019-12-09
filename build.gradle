@@ -23,7 +23,6 @@ reckon {
 
 group = 'de.example'
 description = 'An example java library for experimental purposes'
-// version gitVersion()
 
 ext {
   homepage = "${githubOrg}.github.com/$githubRepo"
