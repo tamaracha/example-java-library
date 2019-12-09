@@ -1,5 +1,5 @@
 plugins {
-  // derive version from git tags, not persisted in properties
+  // determine version from git tags, follow semver spec
   id 'org.ajoberstar.reckon' version '0.12.0'
   // differentiate transient from implementation dependencies
   id 'java-library'
@@ -29,6 +29,7 @@ ext {
 java {
   sourceCompatibility = JavaVersion.VERSION_11
   targetCompatibility = JavaVersion.VERSION_11
+  // tasks and publication artifacts for sources and javadoc
   withJavadocJar()
   withSourcesJar()
 }
@@ -39,7 +40,7 @@ javafx {
 }
 
 repositories {
-    jcenter()
+    jcenter() // contains maven central
 }
 
 dependencies {
