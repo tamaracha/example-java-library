@@ -9,8 +9,6 @@ plugins {
   id 'maven-publish'
   id 'com.jfrog.bintray' version '1.8.4'
   id 'com.jfrog.artifactory' version '4.11.0'
-  // encrypted credentials for bintray etc.
-  id 'nu.studer.credentials' version '1.0.7'
 }
 
 reckon {
@@ -40,7 +38,7 @@ javafx {
 }
 
 repositories {
-    jcenter() // contains maven central
+    jcenter() // superset and superior to maven central
 }
 
 dependencies {
@@ -89,8 +87,8 @@ publishing {
 }
 
 bintray {
-  user = credentials.bintray_user
-  key = credentials.bintray_api_key
+  user = System.getenv('bintray_user')
+  key = System.getenv('bintray_api_key')
   publications = ['simple']
   publish = true
   pkg {

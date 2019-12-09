@@ -3,15 +3,17 @@ install: true
 os: linux
 dist: trusty
 jdk: openjdk11
-
 script:
-  - ./gradlew build
-  - ./gradlew bintrayUpload
-
+- "./gradlew build"
+- "./gradlew bintrayUpload"
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+env:
+  global:
+  - secure: VMKQMqtq+H/LL5BXXPwfyN1bs0pOOLuEOe5Zl9TA7EPdk1xC/lJXtFhM0dau+saEGxhNcSxle9v23b1rmcu+XIXpn6bFzt8/uoOPsLugTYJvByQq8K1gWBiRUmidZf3u0TUXlC7Ec8nWRg23CVfQSXBHOQ/WzoLc/MJcXzeFjQp7rGyG2pMNQba/wPkjDbXJR5/HvEMiqKha4hy2u02M348gmqZsbwv5tEzS71m0XaWWzxGFEdLjcTdy6gA8UbeYMvbVdK7WJ/9g3XNZ30wgNLkPab+1HKZw2gVxacj2Sekgvnhm700SYL8R5Gm3eE+u+12LepaOH2WpDpyXcyJ2qbnHMQo5Z9IwW6AooD6LFiUz3ddscBy1PkSyirldMlrI75EGSm0Hazh77JacU1WSUhvbECcr7G2OlV/EshaclNlO2qyJQse52rNCnJU6OFDrDOWk+KG48qcVWQOEMZhaBGfSWkQRFOEEIa4/xms+39fvqr4FEIfUuahiCWR45pZZpXfobjg9lLgZExLaDxDQZsPWDjlFggPTVa+EI3PpBz8g1aU2wBOPR7R3WdtMkweWOKZQiE39+B+Du3hE12++UsECdyrsDZjZ45A9q9+CzwkcWrH7U7sug/AXIjoaDiT18ZltKXhBI3+g5tbp4IgZeVwfJEDUDdwVv8NEoHRbID4=
+  - secure: qUnpdHf0qY3VORU2slLptre+ATLjnAwwKCYittyYbtv2qWQ5oytVfPALFTg+NC7+2Boq24sYlpnC3xYlFchQ0Tj6TwxXUji4WJ/qUeLANZVzJFSLOvrlOr7B0Yv0gp8QCapCXbHdRZht5T0wsrXkOpmNgAeuffQB5t0aiSOf/3Cixl71bVRxOAbKLcu/bNR1zz4XiVTXTQ3M7ZHcF56OSrzBRo3qu8gDm0sw5BivwAaiI3Ft2v24f9UYZpKBRcwx1GSOSljcuCZ2MvyKQUKdjMWN0LBwIZ5pTokqwkvGSpyjkaAsE7iCKJ4oU1iddKI7JOW9gcilVF+ctogQyGVYJ0o+Yyb0toISuaem3VoKIiBJY6PT7d4MrCPPf4/ZrX9K03govOYbKSSp2xa/DwLCEdh+bqBW4gj6kp18+MYdWr3DSgfx6E893EqQqpqIEkF6dHPJa6NDgQ5MkyP1pP0Q38vbx3zNdNNBen7tit4uYx5x9ADCDmRIRxlCOMa4R6PRcR1dsobMYmiX1gSpLnolhjVWUGYHFBD23jxrNs8Mk6WZgvAlLmlVr0oHsCnoQ8xaWmuSVvTZNo6btlokQpLt/TtVuqNLx4SI/6sRqjJ/HNmHkICPhVq0e/no7jQmeAaFm3qSkmf9+v61rRBXy+1haWGUOKqDjIQQ/xxBZfeJs4E=
