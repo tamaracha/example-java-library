@@ -91,7 +91,6 @@ bintray {
   key = System.getenv('bintray_api_key')
   publications = ['simple']
   publish = true
-  dryRun = true
   pkg {
     repo = project.bintrayRepo
     name = project.name
