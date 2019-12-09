@@ -91,6 +91,7 @@ bintray {
   key = System.getenv('bintray_api_key')
   publications = ['simple']
   publish = true
+  dryRun = true
   pkg {
     repo = project.bintrayRepo
     name = project.name
@@ -98,7 +99,7 @@ bintray {
     licenses = [project.license_name]
     vcsUrl = vcsUrl
     version {
-      name = version
+      name = "$project.version"
       vcsTag = version
     }
   }
