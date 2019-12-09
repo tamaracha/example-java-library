@@ -35,6 +35,7 @@ java {
 javafx {
   modules = [ 'javafx.controls', 'javafx.graphics' ]
   version = '11'
+  configuration = 'compileOnly'
 }
 
 repositories {
