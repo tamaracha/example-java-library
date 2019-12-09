@@ -1,13 +1,35 @@
 plugins {
+  // derive version from git tags, not persisted in properties
   id 'com.palantir.git-version' version '0.12.2'
+  id 'org.ajoberstar.reckon' version '0.12.0'
+  // differentiate transient from implementation dependencies
   id 'java-library'
+  // manage JavaFx modules
   id 'org.openjfx.javafxplugin' version '0.0.8'
+  // publishing plugins
   id 'maven-publish'
   id 'com.jfrog.bintray' version '1.8.4'
   id 'com.jfrog.artifactory' version '4.11.0'
+  // encrypted credentials for bintray etc.
+  id 'nu.studer.credentials' version '1.0.7'
 }
 
-version gitVersion()
+reckon {
+  scopeFromProp()
+  stageFromProp('milestone', 'prerelease', 'rc', 'final')
+  // alternative to stageFromProp
+  // snapshotFromProp()
+}
+
+group = 'de.example'
+description = 'An example java library for experimental purposes'
+// version gitVersion()
+
+ext {
+  homepage = "${githubOrg}.github.com/$githubRepo"
+  vcsUrl = "https://github.com/${githubOrg}/${githubRepo}"
+}
+
 java {
   sourceCompatibility = JavaVersion.VERSION_11
   targetCompatibility = JavaVersion.VERSION_11
@@ -21,7 +43,7 @@ javafx {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -35,7 +57,6 @@ javadoc {
     options {
         setMemberLevel JavadocMemberLevel.PUBLIC
         setAuthor true
-//        links 'https://docs.oracle.com/javase/8/docs/api/' // causes build to fail on openjdk-11.0.2+9
     }
 }
 
@@ -43,22 +64,46 @@ publishing {
   publications {
     simple(MavenPublication) {
       from components.java
+      pom {
+        name = "${project.group}:${project.name}"
+        description = project.description
+        url = homepage
+        licenses {
+          license {
+            name = project.license_name
+            url = project.license_url
+          }
+        }
+        developers {
+          developer {
+            id = 'tamaracha'
+            name = 'Tamara Cook'
+            email = 'tamara.cook@anonym.com'
+          }
+        }
+        scm {
+            connection = "scm:git:git://github.com/${githubOrg}/${githubRepo}.git"
+            developerConnection = "scm:git:ssh://github.com/${githubOrg}/${githubRepo}.git"
+            url = vcsUrl
+        }
+      }
     }
   }
 }
 
 bintray {
-  user = project.bintrayUser
-  key = project.bintrayKey
+  user = credentials.bintray_user
+  key = credentials.bintray_api_key
   publications = ['simple']
-  publish = false
+  publish = true
   pkg {
-    repo = 'maven'
+    repo = project.bintrayRepo
     name = project.name
-    licenses = ['MIT']
-    vcsUrl = 'https://github.com/tamaracha/example-java-library.git'
+    desc = project.description
+    licenses = [project.license_name]
+    vcsUrl = vcsUrl
     version {
-      name = gitVersion()
+      name = version
       vcsTag = versionDetails().lastTag
     }
   }
