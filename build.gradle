@@ -1,6 +1,5 @@
 plugins {
   // derive version from git tags, not persisted in properties
-  id 'com.palantir.git-version' version '0.12.2'
   id 'org.ajoberstar.reckon' version '0.12.0'
   // differentiate transient from implementation dependencies
   id 'java-library'
@@ -16,9 +15,7 @@ plugins {
 
 reckon {
   scopeFromProp()
-  stageFromProp('milestone', 'prerelease', 'rc', 'final')
-  // alternative to stageFromProp
-  // snapshotFromProp()
+  stageFromProp('beta', 'rc', 'final')
 }
 
 group = 'de.example'
@@ -103,7 +100,7 @@ bintray {
     vcsUrl = vcsUrl
     version {
       name = version
-      vcsTag = versionDetails().lastTag
+      vcsTag = version
     }
   }
 }
