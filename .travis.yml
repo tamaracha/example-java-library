@@ -1,9 +1,14 @@
 language: java
 install: true
 os: linux
-dist: trusty
+dist: xenial
 jdk: openjdk11
 # if: tag IS present
+
+# Setup xvfb for tests requiring a gui
+services:
+  - xvfb
+
 script:
 - "./gradlew build"
 #- "./gradlew bintrayUpload"
