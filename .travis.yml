@@ -3,10 +3,10 @@ install: true
 os: linux
 dist: trusty
 jdk: openjdk11
-if: tag IS present
+# if: tag IS present
 script:
 - "./gradlew build"
-- "./gradlew bintrayUpload"
+#- "./gradlew bintrayUpload"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
